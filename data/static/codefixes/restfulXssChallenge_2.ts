@@ -60,8 +60,8 @@ ngAfterViewInit () {
 encodeProductDescription(tableData: any[]) {
   for (let i = 0; i < tableData.length; i++) {
     tableData[i].description = sanitizeHtml(tableData[i].description, {
-      allowedTags: [], // Brak tagów HTML
-      allowedAttributes: {} // Brak dozwolonych atrybutów
+      allowedTags: [],
+      allowedAttributes: {}
     });
   }
 }
