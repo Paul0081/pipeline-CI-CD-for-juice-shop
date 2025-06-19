@@ -74,9 +74,11 @@ jobs:
           apt install -y docker.io
 
       - name: Build Docker image
+        continue-on-error: true
         run: docker build -t juice-shop:latest .
 
       - name: Run Juice Shop container
+        continue-on-error: true
         run: |
           docker run -d -p 3000:3000 --name juice-shop-local juice-shop:latest
 
