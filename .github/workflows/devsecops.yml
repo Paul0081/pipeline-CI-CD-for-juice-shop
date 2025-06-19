@@ -28,7 +28,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
       - name: Run npm audit (SCA)
-        run: npm audit --audit-level=high
+        run: |
+          npm i --package-lock-only
+          npm audit --audit-level=high
 
   sast:
     runs-on: ubuntu-latest
