@@ -1,5 +1,5 @@
 # App
-node_modules/
+#node_modules/
 juiceshop.sqlite
 order_*.pdf
 app/
@@ -19,7 +19,7 @@ data/chatbot/*.*
 # Build
 .nyc_output/
 .sass-cache/
-build/
+#build/
 cache/
 dist/
 logs/
