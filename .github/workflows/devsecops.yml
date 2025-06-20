@@ -80,6 +80,10 @@ jobs:
           username: ${{ secrets.DOCKERHUB_NAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
+      - name: Tag Docker image
+        run: |
+            docker tag juice-shop:latest ${{ secrets.DOCKERHUB_USERNAME }}/juice-shop:latest
+
       - name: Push Docker image to Docker Hub
         run: |
           docker push ${{ secrets.DOCKERHUB_NAME }}/juice-shop:latest
