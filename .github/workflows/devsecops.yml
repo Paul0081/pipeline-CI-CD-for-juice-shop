@@ -19,11 +19,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Run OWASP ZAP Full Scan
-        uses: zaproxy/zap-stable@zap-baseline.py
-        with:
-          target: "http://juice-shop:3000"
-
       - name: Build Docker image
         run: docker build -t juice-shop:latest .
 
@@ -35,10 +30,9 @@ jobs:
         run: |
           sleep 60
 
-      - name: Run OWASP ZAP Full Scan
-        uses: zaproxy/zap-stable@zap-baseline.py
-        with:
-          target: "http://juice-shop:3000"
+      - name: Run OWASP ZAP Baseline Scan (DAST)
+        run: |
+          docker run --network host zaproxy/zap-stable zap-baseline.py -t http://juice-shop:3000
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
