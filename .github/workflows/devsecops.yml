@@ -67,9 +67,9 @@ jobs:
 
       - name: Install Docker CLI
         run: |
-          apt update
-          apt install -y curl
-          apt install -y docker.io
+          sudo apt update
+          sudo apt install -y curl
+          sudo apt install -y docker.io
 
       - name: Build Docker image
         continue-on-error: true
