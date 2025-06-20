@@ -21,11 +21,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Install Docker
-        run: |
-          apt update
-          apt install -y docker.io
-
       - name: Build Docker image
         run: docker build -t juice-shop:latest .
 
