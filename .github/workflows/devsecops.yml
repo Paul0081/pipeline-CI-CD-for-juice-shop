@@ -9,6 +9,14 @@ on:
 jobs:
   scanning:
     runs-on: ubuntu-latest
+    services:
+      docker:
+        image: docker:dind
+        options: --privileged
+        ports:
+          - 2375:2375
+      container:
+        image: ubuntu:latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -37,7 +45,6 @@ jobs:
 
       - name: Install Docker
         run: |
-          sudo apt-get remove -y containerd runc || true
           sudo apt update
           sudo apt install -y curl docker.io
 
