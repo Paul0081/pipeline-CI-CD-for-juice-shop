@@ -19,6 +19,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Run OWASP ZAP Full Scan
+        uses: zaproxy/zap-stable@zap-baseline.py
+        with:
+          target: "http://juice-shop:3000"
+
       - name: Build Docker image
         run: docker build -t juice-shop:latest .
 
@@ -31,10 +36,9 @@ jobs:
           sleep 60
 
       - name: Run OWASP ZAP Full Scan
-        uses: zaproxy/action-full-scan@v0.7.0
+        uses: zaproxy/zap-stable@zap-baseline.py
         with:
           target: "http://juice-shop:3000"
-
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
