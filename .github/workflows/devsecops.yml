@@ -28,10 +28,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
       - name: Run npm audit (SCA)
-        run: |
-          npm install
-          npm i --package-lock-only
-          npm audit --audit-level=high
+        run: npm audit --audit-level=high
 
   sast:
     runs-on: ubuntu-latest
@@ -62,26 +59,27 @@ jobs:
         options: --privileged
         ports:
           - 2375:2375
+    container:
+      image: ubuntu:latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Install
+      - name: Install Docker CLI
         run: |
-          sudo apt update
-          sudo apt install -y curl
-
+          apt update
+          apt install -y curl
+          apt install -y docker.io
       - name: Build Docker image
         run: docker build -t juice-shop:latest .
 
       - name: Run Juice Shop container
         run: |
           docker run -d -p 3000:3000 --name juice-shop-local juice-shop:latest
-
       - name: Wait for Juice Shop to be ready
         run: |
-          sleep 120;
-      
+          sleep 30
+
       - name: Run OWASP ZAP Baseline Scan (DAST)
         run: |
-          docker run --network container:juice-shop-local zaproxy/zap-stable zap-baseline.py -t http://localhost:3000
+          docker run --network host zaproxy/zap-stable zap-baseline.py -t http://localhost:3000
