@@ -37,6 +37,7 @@ jobs:
 
       - name: Install Docker
         run: |
+          sudo apt-get remove -y containerd runc || true
           sudo apt update
           sudo apt install -y curl docker.io
 
