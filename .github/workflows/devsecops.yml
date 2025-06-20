@@ -66,10 +66,20 @@ jobs:
         with:
           image-ref: 'juice-shop:latest'
           format: 'sarif'
-          severity: 'CRITICAL,HIGH'  # Optional severity filter
+          severity: 'CRITICAL,HIGH'
           output: 'trivy-results.sarif'
 
       - name: Upload Trivy results to GitHub Security
         uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: 'trivy-results.sarif'
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_NAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Push Docker image to Docker Hub
+        run: |
+          docker push ${{ secrets.DOCKERHUB_NAME }}/juice-shop:latest
