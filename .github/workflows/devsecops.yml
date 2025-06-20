@@ -82,7 +82,7 @@ jobs:
 
       - name: Tag Docker image
         run: |
-            docker tag juice-shop:latest ${{ secrets.DOCKERHUB_USERNAME }}/juice-shop:latest
+            docker tag juice-shop:latest ${{ secrets.DOCKERHUB_NAME }}/juice-shop:latest
 
       - name: Push Docker image to Docker Hub
         run: |
